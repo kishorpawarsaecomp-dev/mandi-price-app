@@ -1,0 +1,96 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5433/mandi?options=-c%20TimeZone%3DUTC}
+    username: ${DB_USER:mandi}
+    password: ${DB_PASSWORD:mandi}
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+
+  flyway:
+    enabled: true
+
+server:
+  port: 8080
+  error:
+    include-stacktrace: never
+    include-message: never
+
+logging:
+  level:
+    root: INFO
+    com.mandi: DEBUG
+    org.springframework.web: DEBUG
+
+mandi:
+  api:
+    key: ${DATA_GOV_API_KEY:}
+    base-url: https://api.data.gov.in/resource
+    resource-id: 9ef84268-d588-465a-a308-a864a43d0070
+    connect-timeout-ms: 5000
+    read-timeout-ms: 20000
+    page-size: 1000
+
+  states:
+    - Andaman and Nicobar
+    - Andhra Pradesh
+    - Arunachal Pradesh
+    - Assam
+    - Bihar
+    - Chandigarh
+    - Chattisgarh
+    - Dadra and Nagar Haveli
+    - Goa
+    - Gujarat
+    - Haryana
+    - Himachal Pradesh
+    - Jammu and Kashmir
+    - Jharkhand
+    - Karnataka
+    - Kerala
+    - Lakshadweep
+    - Madhya Pradesh
+    - Maharashtra
+    - Manipur
+    - Meghalaya
+    - Mizoram
+    - Nagaland
+    - NCT of Delhi
+    - Odisha
+    - Pondicherry
+    - Punjab
+    - Rajasthan
+    - Sikkim
+    - Tamil Nadu
+    - Telangana
+    - Tripura
+    - Uttar Pradesh
+    - Uttrakhand
+    - West Bengal
+
+  sync:
+    cron: ${MANDI_SYNC_CRON:0 30 19 * * *}
+    zone: ${MANDI_SYNC_ZONE:Asia/Kolkata}
+    states: ${MANDI_SYNC_STATES:}
+    max-pages-per-state: 20
+    run-on-startup: ${MANDI_SYNC_ON_STARTUP:false}
+    admin-token: ${MANDI_ADMIN_TOKEN:}
+
+  trend:
+    threshold-percent: ${MANDI_TREND_THRESHOLD:3.0}
+    min-points: 4
+
+  discovery:
+    max-records: 5000
+
+  cache:
+    prices-ttl-minutes: 10
+    options-ttl-minutes: 360
+
+  cors-origins: ${MANDI_CORS_ORIGINS:http://localhost:5173}
