@@ -17,11 +17,11 @@ spring:
     enabled: true
 
 server:
-  port: 8080
+  port: ${PORT:8080}
   error:
     include-stacktrace: never
     include-message: never
-
+    
 logging:
   level:
     root: INFO
